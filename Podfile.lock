@@ -1,0 +1,16 @@
+PODS:
+  - INSElectronicProgramGuideLayout (1.1.1)
+
+DEPENDENCIES:
+  - INSElectronicProgramGuideLayout
+
+SPEC REPOS:
+  trunk:
+    - INSElectronicProgramGuideLayout
+
+SPEC CHECKSUMS:
+  INSElectronicProgramGuideLayout: 8ff2a4bb10c7e93733c853b5880da82db4ca11aa
+
+PODFILE CHECKSUM: 4b3609bc22f2dd5ae2f6e0baeac5a8c67afafe79
+
+COCOAPODS: 1.10.0

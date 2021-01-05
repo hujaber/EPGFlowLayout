@@ -3,27 +3,43 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271CB48C259BE7BA00FEC22B /* SectionHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271CB48B259BE7BA00FEC22B /* SectionHeaderCell.swift */; };
+		271CB490259BE9F700FEC22B /* ProgramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271CB48F259BE9F700FEC22B /* ProgramCell.swift */; };
+		271CB49E259C01A800FEC22B /* EPGFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271CB49D259C01A800FEC22B /* EPGFlowLayout.swift */; };
+		271CB4A1259CF2A800FEC22B /* Withable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271CB4A0259CF2A800FEC22B /* Withable.swift */; };
+		271CB4A8259CF8D500FEC22B /* EPGLayoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271CB4A7259CF8D500FEC22B /* EPGLayoutSettings.swift */; };
+		271CB4AC259D046E00FEC22B /* EPGLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271CB4AB259D046E00FEC22B /* EPGLayoutAttributes.swift */; };
 		2721B4C52599CFBB0038B231 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721B4C42599CFBB0038B231 /* AppDelegate.swift */; };
-		2721B4C72599CFBB0038B231 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721B4C62599CFBB0038B231 /* SceneDelegate.swift */; };
 		2721B4C92599CFBB0038B231 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2721B4C82599CFBB0038B231 /* ViewController.swift */; };
 		2721B4CC2599CFBB0038B231 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2721B4CA2599CFBB0038B231 /* Main.storyboard */; };
 		2721B4CE2599CFBC0038B231 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2721B4CD2599CFBC0038B231 /* Assets.xcassets */; };
 		2721B4D12599CFBC0038B231 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2721B4CF2599CFBC0038B231 /* LaunchScreen.storyboard */; };
+		27BEDD9C25A4F74D0054045D /* TimeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BEDD9B25A4F74D0054045D /* TimeHeaderCell.swift */; };
+		FB21D37773D04BAADAB6B8D9 /* Pods_EPGDraft.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEFF5C8FC1DBC0B66DD98444 /* Pods_EPGDraft.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		138FE28290C84A2C5C3AE6D2 /* Pods-EPGDraft.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EPGDraft.debug.xcconfig"; path = "Target Support Files/Pods-EPGDraft/Pods-EPGDraft.debug.xcconfig"; sourceTree = "<group>"; };
+		271CB48B259BE7BA00FEC22B /* SectionHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderCell.swift; sourceTree = "<group>"; };
+		271CB48F259BE9F700FEC22B /* ProgramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramCell.swift; sourceTree = "<group>"; };
+		271CB49D259C01A800FEC22B /* EPGFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPGFlowLayout.swift; sourceTree = "<group>"; };
+		271CB4A0259CF2A800FEC22B /* Withable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Withable.swift; sourceTree = "<group>"; };
+		271CB4A7259CF8D500FEC22B /* EPGLayoutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPGLayoutSettings.swift; sourceTree = "<group>"; };
+		271CB4AB259D046E00FEC22B /* EPGLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPGLayoutAttributes.swift; sourceTree = "<group>"; };
 		2721B4C12599CFBB0038B231 /* EPGDraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPGDraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2721B4C42599CFBB0038B231 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2721B4C62599CFBB0038B231 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2721B4C82599CFBB0038B231 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2721B4CB2599CFBB0038B231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2721B4CD2599CFBC0038B231 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2721B4D02599CFBC0038B231 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2721B4D22599CFBC0038B231 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27BEDD9B25A4F74D0054045D /* TimeHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeHeaderCell.swift; sourceTree = "<group>"; };
+		DEFF5C8FC1DBC0B66DD98444 /* Pods_EPGDraft.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EPGDraft.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F39A06822AF15BDB51C59119 /* Pods-EPGDraft.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EPGDraft.release.xcconfig"; path = "Target Support Files/Pods-EPGDraft/Pods-EPGDraft.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +47,40 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB21D37773D04BAADAB6B8D9 /* Pods_EPGDraft.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		271CB48A259BE7B200FEC22B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				271CB48B259BE7BA00FEC22B /* SectionHeaderCell.swift */,
+				271CB48F259BE9F700FEC22B /* ProgramCell.swift */,
+				27BEDD9B25A4F74D0054045D /* TimeHeaderCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		271CB4A6259CF8C500FEC22B /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				271CB49D259C01A800FEC22B /* EPGFlowLayout.swift */,
+				271CB4A7259CF8D500FEC22B /* EPGLayoutSettings.swift */,
+				271CB4AB259D046E00FEC22B /* EPGLayoutAttributes.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		2721B4B82599CFBB0038B231 = {
 			isa = PBXGroup;
 			children = (
 				2721B4C32599CFBB0038B231 /* EPGDraft */,
 				2721B4C22599CFBB0038B231 /* Products */,
+				40015663171D8BFEBEF4A6B3 /* Pods */,
+				7318166B445E01A66C35C3D4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +95,34 @@
 		2721B4C32599CFBB0038B231 /* EPGDraft */ = {
 			isa = PBXGroup;
 			children = (
+				271CB4A6259CF8C500FEC22B /* Layout */,
+				271CB48A259BE7B200FEC22B /* Cells */,
 				2721B4C42599CFBB0038B231 /* AppDelegate.swift */,
-				2721B4C62599CFBB0038B231 /* SceneDelegate.swift */,
 				2721B4C82599CFBB0038B231 /* ViewController.swift */,
 				2721B4CA2599CFBB0038B231 /* Main.storyboard */,
 				2721B4CD2599CFBC0038B231 /* Assets.xcassets */,
 				2721B4CF2599CFBC0038B231 /* LaunchScreen.storyboard */,
 				2721B4D22599CFBC0038B231 /* Info.plist */,
+				271CB4A0259CF2A800FEC22B /* Withable.swift */,
 			);
 			path = EPGDraft;
+			sourceTree = "<group>";
+		};
+		40015663171D8BFEBEF4A6B3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				138FE28290C84A2C5C3AE6D2 /* Pods-EPGDraft.debug.xcconfig */,
+				F39A06822AF15BDB51C59119 /* Pods-EPGDraft.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7318166B445E01A66C35C3D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DEFF5C8FC1DBC0B66DD98444 /* Pods_EPGDraft.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +132,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2721B4D52599CFBC0038B231 /* Build configuration list for PBXNativeTarget "EPGDraft" */;
 			buildPhases = (
+				97C7AC0AC55363DC7F8A8CFD /* [CP] Check Pods Manifest.lock */,
 				2721B4BD2599CFBB0038B231 /* Sources */,
 				2721B4BE2599CFBB0038B231 /* Frameworks */,
 				2721B4BF2599CFBB0038B231 /* Resources */,
+				CADD91F09F148D7131D1BF4D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,14 +192,62 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		97C7AC0AC55363DC7F8A8CFD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EPGDraft-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CADD91F09F148D7131D1BF4D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EPGDraft/Pods-EPGDraft-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EPGDraft/Pods-EPGDraft-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EPGDraft/Pods-EPGDraft-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2721B4BD2599CFBB0038B231 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				271CB4A8259CF8D500FEC22B /* EPGLayoutSettings.swift in Sources */,
+				271CB48C259BE7BA00FEC22B /* SectionHeaderCell.swift in Sources */,
+				271CB49E259C01A800FEC22B /* EPGFlowLayout.swift in Sources */,
 				2721B4C92599CFBB0038B231 /* ViewController.swift in Sources */,
+				27BEDD9C25A4F74D0054045D /* TimeHeaderCell.swift in Sources */,
 				2721B4C52599CFBB0038B231 /* AppDelegate.swift in Sources */,
-				2721B4C72599CFBB0038B231 /* SceneDelegate.swift in Sources */,
+				271CB4AC259D046E00FEC22B /* EPGLayoutAttributes.swift in Sources */,
+				271CB490259BE9F700FEC22B /* ProgramCell.swift in Sources */,
+				271CB4A1259CF2A800FEC22B /* Withable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,12 +391,14 @@
 		};
 		2721B4D62599CFBC0038B231 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 138FE28290C84A2C5C3AE6D2 /* Pods-EPGDraft.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N49W5L94HR;
 				INFOPLIST_FILE = EPGDraft/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,12 +412,14 @@
 		};
 		2721B4D72599CFBC0038B231 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F39A06822AF15BDB51C59119 /* Pods-EPGDraft.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N49W5L94HR;
 				INFOPLIST_FILE = EPGDraft/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
