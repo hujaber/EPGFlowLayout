@@ -17,7 +17,7 @@ struct EPGLayoutSettings {
         UIScreen.main.bounds.width
     }
     
-    private let itemOffset: CGFloat = 50
+    let itemOffset: CGFloat = 50
     
     private let itemHeight: CGFloat = 60
     

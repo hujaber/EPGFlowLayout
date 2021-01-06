@@ -14,16 +14,19 @@ struct EPGProgram {
     
     static func anotherFactory() -> [[EPGProgram]] {
         let startDate = Date()
-        let numberOfSections = 15
+        let numberOfSections = 9
         let array = (0..<numberOfSections).map { index -> EPGProgram in
-            if Bool.random() {
-                return EPGProgram(startDate: startDate.addingTimeInterval(Double(index) * 1800),
-                                  endDate: startDate.addingTimeInterval(Double(index).advanced(by: 1) * 1800))
-            } else {
-                return EPGProgram(startDate: startDate.addingTimeInterval(Double(index) * 2000),
-                                  endDate: startDate.addingTimeInterval(Double(index).advanced(by: 1) * 2000))
-            }
-        }.map {
+//            if Bool.random() {
+                return EPGProgram(startDate: startDate.addingTimeInterval(Double(index) *  Double(Int.random(in: 1...2) * 1800)),
+                                  endDate: startDate.addingTimeInterval(Double(index).advanced(by: 1) * Double(Int.random(in: 1...2)) * 1800))
+//            } else if Bool.random() {
+//                return EPGProgram(startDate: startDate.addingTimeInterval(Double(index) * 3700),
+//                                  endDate: startDate.addingTimeInterval(Double(index).advanced(by: 1) * 2000))
+//            } else {
+//                return EPGProgram(startDate: startDate.addingTimeInterval(Double(index) * 3600),
+//                                  endDate: startDate.addingTimeInterval(Double(index).advanced(by: 1) * 2000))
+//            }
+        }.shuffled().map {
             [$0, $0, $0, $0, $0, $0, $0].shuffled()
         }
         
@@ -40,6 +43,8 @@ class ViewController: UIViewController {
         
     private lazy var programs: [[EPGProgram]] = EPGProgram.anotherFactory()
     
+    private var collectionContentOffsetObserver: NSKeyValueObservation?
+    
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).with {
         $0.backgroundColor = .clear
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +58,19 @@ class ViewController: UIViewController {
                     withReuseIdentifier: TimeHeaderCell.identifier)
         $0.bounces = false
         $0.maximumZoomScale = 1
+        collectionContentOffsetObserver = $0.observe(\.contentOffset, changeHandler: { (collectionView, value) in
+            let newValue = collectionView.contentOffset.x + 80
+            let stringValue = String(Int(newValue))
+            self.contentOffSetLabel.text = stringValue
+            
+        })
+    }
+    
+    private lazy var contentOffSetLabel: UILabel = UILabel().with {
+        $0.textColor = .blue
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.font = .systemFont(ofSize: 17, weight: .heavy)
+        $0.text = "TEST"
     }
 
     override func viewDidLoad() {
@@ -66,10 +84,13 @@ class ViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
+        view.addSubview(contentOffSetLabel)
+        NSLayoutConstraint.activate([
+            contentOffSetLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            contentOffSetLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+        ])
         collectionView.reloadData()
     }
-
-
 }
 
 extension ViewController: EPGFlowLayoutDataSource {
