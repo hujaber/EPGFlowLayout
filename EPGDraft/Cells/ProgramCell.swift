@@ -37,6 +37,11 @@ final class ProgramCell: UICollectionViewCell {
         backgroundColor = Bool.random() ? .black : UIColor(red: 0.22, green: 0.25, blue: 0.25, alpha: 1.00)
     }
     
+    func populate(item: EPGProgram) {
+        firstView.text = "Lenght: \(item.durationInMinutes) minutes"
+        backgroundColor = Bool.random() ? .black : UIColor(red: 0.22, green: 0.25, blue: 0.25, alpha: 1.00)
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }

@@ -7,10 +7,55 @@
 
 import UIKit
 
+var items: [[EPGProgram]] {
+    let startDate = Date()
+    let halfHourSeconds: Double = 1800
+    let twentyFiveMinutes: Double = 1800 - (5 * 60)
+    let anHour: Double = 1800 * 2
+    let anHourAnd15: Double = 3600 + (60 * 15)
+    let fourtyFiveMinutes: Double = 60 * 45
+
+    var firstSection = [EPGProgram]()
+    for index in 0...5 {
+        switch index {
+        case 0:
+            firstSection.append(.init(startDate: startDate,
+                                      endDate: startDate.addingTimeInterval(twentyFiveMinutes)))
+        case 1:
+            firstSection.append(.init(startDate: firstSection[index - 1].endDate,
+                                      endDate: firstSection[index - 1].endDate.addingTimeInterval(fourtyFiveMinutes)))
+        case 2:
+            firstSection.append(.init(startDate: firstSection[index - 1].endDate,
+                                      endDate: firstSection[index - 1].endDate.addingTimeInterval(twentyFiveMinutes)))
+        case 3:
+            firstSection.append(.init(startDate: firstSection[index - 1].endDate,
+                                      endDate: firstSection[index - 1].endDate.addingTimeInterval(anHour)))
+        case 4:
+            firstSection.append(.init(startDate: firstSection[index - 1].endDate,
+                                      endDate: firstSection[index - 1].endDate.addingTimeInterval(anHourAnd15)))
+        default:
+            break
+        }
+        
+    }
+    
+    return [firstSection, firstSection, firstSection.shuffled(), firstSection.shuffled(), firstSection.shuffled(),
+            firstSection.shuffled(), firstSection.shuffled(), firstSection, firstSection.shuffled(),
+            firstSection.reversed(), firstSection, firstSection, firstSection]
+}
+
 struct EPGProgram {
     var startDate: Date
     var endDate: Date
 
+    
+    var durationInMinutes: Double {
+        let end = endDate.timeIntervalSince1970
+        let start = startDate.timeIntervalSince1970
+        let diff = end - start
+        let inMinutes = diff / 60
+        return inMinutes
+    }
     
     static func anotherFactory() -> [[EPGProgram]] {
         let startDate = Date()
@@ -41,7 +86,8 @@ class ViewController: UIViewController {
         $0.dataSource = self
     }
         
-    private lazy var programs: [[EPGProgram]] = EPGProgram.anotherFactory()
+    private lazy var programs: [[EPGProgram]] = items
+    
     
     private var collectionContentOffsetObserver: NSKeyValueObservation?
     
@@ -123,7 +169,8 @@ extension ViewController: UICollectionViewDataSource {
         let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: ProgramCell.identifier,
                                  for: indexPath) as! ProgramCell
-        cell.populate(indexPath: indexPath)
+//        cell.populate(indexPath: indexPath)
+        cell.populate(item: programs[indexPath.section][indexPath.item])
         return cell
     }
     

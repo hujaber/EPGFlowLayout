@@ -13,7 +13,7 @@ protocol EPGFlowLayoutDataSource: AnyObject {
 }
 
 final class EPGFlowLayout: UICollectionViewLayout {
-
+    
     // MARK: Element
     enum Element: String {
         case sectionHeader
@@ -42,14 +42,9 @@ final class EPGFlowLayout: UICollectionViewLayout {
     }
     
     private var collectionViewContentWidth: CGFloat {
-        guard let collectionView = collectionView,
-              collectionView.numberOfSections > 0 else {
-            return .zero
-        }
-        let numberOfItemsInSection = collectionView.numberOfItems(inSection: 0)
         let sectionHeaderWidth = sectionHeaderSize.width
-        let itemWidth = widthOfPreviousItemsAt(indexPath: .init(item: numberOfItemsInSection - 1, section: 0)) + 500
-        return sectionHeaderWidth + itemWidth
+        let contentWidth = settings.numberOfTimeHeaderItems.cgFloat * settings.timeHeaderItemSize.width
+        return sectionHeaderWidth + CGFloat(contentWidth)
     }
     
     private var settings = EPGLayoutSettings()
@@ -97,7 +92,7 @@ extension EPGFlowLayout {
                                                  endDateAtIndexPath: indexPath).timeIntervalSince1970 / 60
         return endDate - startDate
     }
-
+    
     
     /// Returns the width of all the previous items at a specific index
     /// - Parameter indexPath: indexPath of the item which wants the width of all the previous items
@@ -120,25 +115,33 @@ extension EPGFlowLayout {
     /// Returns the size of the item based on the time duration of the item
     /// - Parameter difference: Difference between the end/start date of the item, i.e. duration
     /// - Returns: Size
-    private func itemSizeForDateDifference(_ difference: Double) -> (CGSize, Bool) {
+    private func itemSizeForDateDifference(_ difference: Double) -> CGSize {
         if difference < 30 {
-            return (settings.itemSize, false)
+            return settings.itemSize
         } else {
             let length = difference / 30
             let remainder = difference.truncatingRemainder(dividingBy: 30)
-            var width = settings.fullItemSize.width * CGFloat(length)
-            if remainder != 0 {
-                width += settings.itemSize.width
+            var width: CGFloat = 0
+            if remainder == 0 {
+                if length == 1 {
+                    width = settings.fullItemSize.width * CGFloat(length)
+                } else {
+                    width = settings.fullItemSize.width * CGFloat(length - 1) + settings.itemSize.width - settings.itemOffset
+                }
+                
+            } else {
+                width = settings.itemSize.width * CGFloat(length) + settings.itemSize.width * 0.5
             }
+            
             let height = settings.itemSize.height
             let size = CGSize(width: width, height: height)
-            return (size, true)
+            return size
         }
     }
     
     private func itemSizeForItemAtIndexPath(_ indexPath: IndexPath) -> CGSize {
         let difference = dateDifferenceForItemAt(indexPath: indexPath)
-        return itemSizeForDateDifference(difference).0
+        return itemSizeForDateDifference(difference)
     }
 }
 
@@ -155,31 +158,30 @@ extension EPGFlowLayout {
         contentHeight = 0
         zIndex = 0
         oldBounds = collectionView.bounds
-
+        
         prepareTimeHeaderView()
         
         for section in 0..<collectionView.numberOfSections {
             let sectionHeaderAttributes = EPGLayoutAttributes(forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, with: .init(item: 0, section: section))
             
             prepareSectionHeader(size: sectionHeaderSize,
-                           attributes: sectionHeaderAttributes, section: section)
+                                 attributes: sectionHeaderAttributes, section: section)
             let numberOfItems = collectionView.numberOfItems(inSection: section)
             for item in 0..<numberOfItems {
                 let cellIndexPath = IndexPath(item: item, section: section)
                 
-               
+                
                 let difference = dateDifferenceForItemAt(indexPath: cellIndexPath)
-                let itemSize: CGSize = itemSizeForDateDifference(difference).0
+                let itemSize: CGSize = itemSizeForDateDifference(difference)
                 
                 let attributes = EPGLayoutAttributes(forCellWith: cellIndexPath)
-                attributes.isFullWidth = itemSizeForDateDifference(difference).1
                 var newX: CGFloat
                 if item == 0 {
                     newX = sectionHeaderSize.width + settings.minimumInteritemSpacing
                 } else {
                     newX = settings.minimumInteritemSpacing + widthOfPreviousItemsAt(indexPath: cellIndexPath)
                 }
-
+                
                 let newY = CGFloat(section) * sectionHeaderSize.height + settings.timeHeaderItemSize.height
                 attributes.frame = CGRect(x: newX,
                                           y: newY,
@@ -224,14 +226,12 @@ extension EPGFlowLayout {
     
     /// Prepares the time line header view of the collection view and caches it
     private func prepareTimeHeaderView() {
-        guard let collectionView = collectionView else { return }
-        let numberOfRowsInSection = collectionView.numberOfItems(inSection: 0)
         var originalX = sectionHeaderSize.width
-        for index in 0..<numberOfRowsInSection {
+        for index in 0..<settings.numberOfTimeHeaderItems {
             let indexPath = IndexPath(item: index, section: 0)
             let attributes = EPGLayoutAttributes(forSupplementaryViewOfKind: Element.timeHeader.kind, with: indexPath)
             attributes.frame = .init(origin: .init(x: originalX, y: 0), size: settings.timeHeaderItemSize)
-            attributes.zIndex = .max - 1
+            attributes.zIndex = indexPath.item
             cache[.timeHeader]?[indexPath] = attributes
             originalX += settings.timeHeaderItemSize.width
         }
@@ -263,7 +263,7 @@ extension EPGFlowLayout {
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-                
+        
         guard let collectionView = collectionView else {
             return nil
         }
@@ -273,7 +273,7 @@ extension EPGFlowLayout {
         
         for (_, elementInfos) in cache {
             for (_, attributes) in elementInfos {
-
+                
                 if attributes.frame.intersects(rect) {
                     visibleLayoutAttributes.append(attributes)
                 }
@@ -315,70 +315,35 @@ extension EPGFlowLayout {
     }
     
     func updateCellAttributes(_ attributes: UICollectionViewLayoutAttributes) {
-        if attributes.representedElementCategory == .cell,
-           attributes.representedElementKind != Element.sectionHeader.kind,
-           attributes.representedElementKind != Element.timeHeader.kind,
-           attributes.representedElementKind != UICollectionView.elementKindSectionHeader {
+        if attributes.representedElementKind != Element.sectionHeader.kind,
+             attributes.representedElementKind != Element.timeHeader.kind,
+            attributes.representedElementKind != UICollectionView.elementKindSectionHeader {
             
             var maxX = widthOfPreviousItemsAt(indexPath: attributes.indexPath)
             if maxX == 0 { maxX = sectionHeaderSize.width }
             let offset = contentOffset.x + sectionHeaderSize.width
-            let isFullWidth = (attributes as? EPGLayoutAttributes)!.isFullWidth
-            let width = attributes.frame.width
-            
-            
             
             let finalX: CGFloat
-            if isFullWidth {
-                let numberOfPagesScrolled = offset / settings.timeHeaderItemSize.width
-
-                let numberOfRequiredScrolls = width / settings.fullItemSize.width
-                
-//                let remainingPages =  numberOfPagesScrolled / numberOfRequiredScrolls
-                
-                if numberOfPagesScrolled < numberOfRequiredScrolls {
-                    finalX = maxX
-                } else {
-                    let remainingPages = numberOfRequiredScrolls /  numberOfPagesScrolled
-                    let remainder = numberOfRequiredScrolls.truncatingRemainder(dividingBy: numberOfPagesScrolled)
-                    if remainder > 0 {
-                        finalX = maxX
-                    } else {
-                        if offset < maxX {
-                            finalX = maxX
-                            
-                        } else {
-                            finalX = offset
-                        }
-                    }
-                }
-                
-                
-                
-//                if offset + settings.itemOffset >= maxX + width {
-//                    finalX = maxX + settings.itemOffset
-//                } else if offset < maxX + width {
-//                    finalX = maxX
-//                } else {
-//                    finalX = offset
-//                }
-                
+            
+            if offset < maxX {
+                finalX = maxX
             } else {
-                if offset < maxX {
-                    finalX = maxX
-                    
-                } else {
-                    finalX = offset
-                }
+                finalX = offset
             }
             
             var origin = attributes.frame.origin
             
             origin.x = CGFloat(finalX)
             attributes.frame = CGRect(origin: origin, size: attributes.frame.size)
-            
         }
         
+    }
+    
+    private func widthOfPreviousTimeHeaderAt(indexPath: IndexPath) -> CGFloat {
+        if indexPath.item == 0 { return settings.sectionHeaderSize!.width }
+        var width: CGFloat = 0
+        width = CGFloat((indexPath.item)) * settings.timeHeaderItemSize.width + settings.sectionHeaderSize!.width
+        return width
     }
     
     
@@ -389,22 +354,22 @@ extension EPGFlowLayout {
         guard let collectionView = collectionView else {
             return result
         }
-
+        
         let targetRect = CGRect(origin: result, size: collectionView.bounds.size)
         let layoutAttributes = layoutAttributesForElements(in: targetRect)?
             .filter({ $0.representedElementKind == Element.timeHeader.kind })
             .sorted { $0.frame.minX < $1.frame.minX }
-
+        
         // 1. fetch the first two visible items attributes, if not found return the default result
         guard let first = layoutAttributes?.first, let second = layoutAttributes?.second else {
             return result
         }
-
+        
         // 2. couple of attributes with the difference between their x point and the proposed offset x point
         // we should set the offset to the couple which is the nearest to the proposed point
         let firstCouple: (CGFloat, UICollectionViewLayoutAttributes) = (abs(proposedContentOffset.x - first.frame.origin.x), first)
         let secondCouple: (CGFloat, UICollectionViewLayoutAttributes) =  (abs(proposedContentOffset.x - second.frame.origin.x), second)
-
+        
         let couples = [firstCouple, secondCouple]
         // 3. we get the minimum here
         let min_ = min(firstCouple.0, secondCouple.0)
@@ -412,7 +377,7 @@ extension EPGFlowLayout {
         let selectedOne = couples.first(where: { $0.0 == min_ })
         // 5. and alter the initial result here, taking into consideration the section header size
         result = .init(x: selectedOne!.1.frame.origin.x - sectionHeaderSize.width, y: proposedContentOffset.y)
-
+        
         return result
     }
 }

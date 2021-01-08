@@ -28,6 +28,15 @@ struct EPGLayoutSettings {
     private(set) lazy var timeHeaderItemSize: CGSize = .init(width: screenWidth - sectionHeaderSize!.width - itemOffset,
                                                              height: itemHeight)
     
+    var numberOfTimeHeaderItems: Int {
+        let startDateInSeconds = startDate.timeIntervalSince1970
+        let endDateInSeconds = endDate.timeIntervalSince1970
+        let durationInSeconds = (endDateInSeconds - startDateInSeconds)
+        let durationInMinutes = durationInSeconds / 60
+        let halfHourPeriods = durationInMinutes / 30
+        let numberOfTimeHeaderItems = halfHourPeriods + 1
+        return Int(numberOfTimeHeaderItems)
+    }
     
     var itemSize: CGSize {
         let sectionWidth = sectionHeaderSize!.width
@@ -50,7 +59,7 @@ struct EPGLayoutSettings {
 extension EPGLayoutSettings {
     init() {
         self.sectionHeaderSize = .init(width: 80, height: itemHeight)
-        self.minimumLineSpacing = 2
+        self.minimumLineSpacing = 0
         self.minimumInteritemSpacing = 0
         self.startDate = .init()
         self.endDate = Date().endOfDay

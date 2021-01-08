@@ -9,14 +9,15 @@ import UIKit
 
 final class EPGLayoutAttributes: UICollectionViewLayoutAttributes {
     var initialOrigin: CGPoint = .zero
-    var isFullWidth: Bool = true
+  //  var isFullWidth: Bool = true
+
     
     override func copy(with zone: NSZone? = nil) -> Any {
         guard let copiedAttributes = super.copy(with: zone) as? EPGLayoutAttributes else {
             fatalError()
         }
         copiedAttributes.initialOrigin = initialOrigin
-        copiedAttributes.isFullWidth = isFullWidth
+     //   copiedAttributes.isFullWidth = isFullWidth
         return copiedAttributes
     }
     
@@ -29,9 +30,9 @@ final class EPGLayoutAttributes: UICollectionViewLayoutAttributes {
             return false
         }
         
-        if otherAttributes.isFullWidth != isFullWidth {
-            return false
-        }
+//        if otherAttributes.isFullWidth != isFullWidth {
+//            return false
+//        }
         
         return super.isEqual(object)
     }
