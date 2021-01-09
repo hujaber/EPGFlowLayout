@@ -116,7 +116,7 @@ extension EPGFlowLayout {
     /// - Parameter difference: Difference between the end/start date of the item, i.e. duration
     /// - Returns: Size
     private func itemSizeForDateDifference(_ difference: Double) -> CGSize {
-        if difference < 30 {
+        if difference <= 30 {
             return settings.itemSize
         } else {
             let length = difference / 30

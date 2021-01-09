@@ -20,7 +20,7 @@ var items: [[EPGProgram]] {
         switch index {
         case 0:
             firstSection.append(.init(startDate: startDate,
-                                      endDate: startDate.addingTimeInterval(twentyFiveMinutes)))
+                                      endDate: startDate.addingTimeInterval(halfHourSeconds)))
         case 1:
             firstSection.append(.init(startDate: firstSection[index - 1].endDate,
                                       endDate: firstSection[index - 1].endDate.addingTimeInterval(fourtyFiveMinutes)))

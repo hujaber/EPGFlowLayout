@@ -17,16 +17,16 @@ struct EPGLayoutSettings {
         UIScreen.main.bounds.width
     }
     
-    let itemOffset: CGFloat = 50
+    let itemOffset: CGFloat = 65
     
-    private let itemHeight: CGFloat = 60
+    private let itemHeight: CGFloat = 70
     
     var isSectionHeadersSticky: Bool = true
     
     var itemsShouldFloat: Bool = true
     
     private(set) lazy var timeHeaderItemSize: CGSize = .init(width: screenWidth - sectionHeaderSize!.width - itemOffset,
-                                                             height: itemHeight)
+                                                             height: 40)
     
     var numberOfTimeHeaderItems: Int {
         let startDateInSeconds = startDate.timeIntervalSince1970
